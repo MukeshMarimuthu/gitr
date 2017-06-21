@@ -1,0 +1,62 @@
+---
+title: "Task Report"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r}
+install.packages("xlsx",repos = "http://cran.us.r-project.org")
+```
+
+## Including Plots
+
+You can also embed plots, for example:
+
+```{r}
+library("xlsx")
+rep = read.xlsx("Walkinreport.xlsx", sheetIndex= 2, header=TRUE, colIndex = c(13,10), startRow = 1, endRow = 32)
+#rep
+#table(rep)
+#rep
+y=rep[rep$Status!="Reject",]
+z=data.frame(y)
+z
+count
+#dotchart(y)
+#table(y)
+#table(y)
+#x
+#attach(rep)
+#y=(rep$Status=="Reject" <-NULL)
+#y
+#x[,Status:=NULL]
+
+#x$Status <- NULL
+
+# Removing the Reject column from Table
+
+
+#(dtab<-table(rep))
+#barplot(table(rep))
+#barplot(dtab, ylim = c(0,30), xlab="r", ylab="z",col="red",main= "Test Report")
+#beer.counts = table(rep)
+#beer.counts = x
+#beer.counts = x
+#pie(beer.counts)
+#pie(beer.counts)
+#names(beer.counts) = c("Arvind DB","Direct walkin",
+#"Facebook","Friend Referal,""List purchase", "Walkin Referal", "Website","a")
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
