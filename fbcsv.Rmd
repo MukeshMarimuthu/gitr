@@ -1,0 +1,31 @@
+---
+title: "Facebook Registration Data"
+output:
+  pdf_document: default
+  html_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+#This is an Module for analysing the peak hours of facebook registration.
+
+```{r }
+library("plotly")
+mydata=read.csv("/home/ecsusa13/Fb1.csv", header= TRUE, sep = ",")
+timedata=mydata$Time
+timedata
+
+Hours=format(as.POSIXct(strptime(timedata,"%H:%M",tz="")) ,format = "%H")
+Hours
+Mytable=table(Hours)
+Mytable
+plot(Mytable,type = "o", col = "red", xlab = "Hours", ylab = "Registration Counts",
+   main = "Fb Registrations Hourly Basis")
+```
+
+# Conclusion : 
+
+#After analysing the data we found that more registrations are made between 5PM to 11 PM.

@@ -1,0 +1,63 @@
+---
+title: "bargraph"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+
+```{r }
+library("plotly")
+library(ggplot2)
+mydata=read.csv("/home/ecsusa13/Fb1.csv", header= TRUE, sep = ",")
+timedata=mydata$Time
+timedata
+
+Hours=format(as.POSIXct(strptime(timedata,"%H:%M",tz="")) ,format = "%H")
+Hours
+Mytable=table(Hours)
+Mytable
+plot(Mytable,type = "o", col = "red", xlab = "Hours", ylab = "Registration Counts",
+   main = "Fb Registrations Hourly Basis")
+
+par(mar=c(5.1, 2.1, 1.5, 7.1), xpd=TRUE)
+barplot(Mytable, main = "Barplot and Legends", sub="This s the graph to show by what time we are getting more number of Fb registration" ,subwidth = 1, ylim = c(0,25), xlim=c(0,23),  col=c("blue","red", "yellow", "green"), 
+        xlab = "Hours", ylab = "Counts", cex.axis=0.5, legend.text = TRUE, args.legend = list(x = "topright", bty = "n", inset=c(-0.18, 0.11)))
+
+
+#legend("top",  c("darkblue","red"), c("reading/Writing", "Speaking")  )
+
+#legend("topright", 
+ #      legend = c("Blue", "Red","Yellow", "Green"), 
+  #     fill = c("blue", "red", "yellow", "green"))
+z=mydata
+bar <- ggplot(z, aes(x = factor(1), fill = factor(Time))) + geom_bar(width = 1)
+
+#par(xpd=TRUE)
+#barplot(Mytable, main = "Barplot and Legends", sub="This s the graph to show by what #time we are getting more number of Fb registration" ,subwidth = 1, ylim = c(10,25), #xlim=c(0,23),  col=c("blue","red", "yellow", "green"), xlab = "Hours", ylab = "Counts",
+ #       legend.text = TRUE, args.legend = list(x = "topright", bty = "n", inset=c(-11, #0)))
+
+par(mar=c(5.1, 4.1, 4.1, 8.1), xpd=TRUE)
+
+barplot(Mytable, main = "Barplot and Legends", sub="This s the graph to show by what time we are getting more number of Fb registration" ,subwidth = 1, ylim = c(10,25), xlim=c(0,23),  col=c("blue","red", "yellow", "green"), xlab = "Hours", ylab = "Counts",
+        legend.text = TRUE, args.legend = list(x = "topright", bty = "n", inset=c(1, 0)))
+
+
+#legend("right", 
+ #      legend = c("Blue", "Red","Yellow", "Green"), 
+  #     fill = c("blue", "red", "yellow", "green"))
+
+
+
+#bar <- ggplot(Mytable, aes(x = factor(1), fill = factor(Mytable))) + geom_bar(width = 1)
+
+
+```

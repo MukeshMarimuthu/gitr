@@ -1,0 +1,55 @@
+---
+title: "time"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+In this Module we are going to analyse the data to find by what time we are getting more registration in facebook. 
+
+```{r}
+install.packages("xlsx",repos = "http://cran.us.r-project.org")
+```
+
+```{r}
+library("xlsx")
+rep=read.xlsx("fb.xlsx", sheetIndex= 1, header=TRUE, colIndex = c(1,2,3), startRow = 1, endRow = 185)
+rep 
+#z=table(rep$Time)
+#barplot(z)
+#set.seed(1) # So you can get the same numbers as I do
+#MyDates <- ISOdatetime(2012, 1, 1, 0, 0, 0, tz = "GMT") + sample(1:27000, 500)
+#head(MyDates)
+#MyDatesTable <- table(cut(MyDates, breaks="hour"))
+#MyDatesTable
+#data.frame(MyDatesTable)
+a=aggregate(
+  count ~ wkday + hour,
+  data=transform(rep,
+                 wkday=format(as.Date(Date), "%A"),
+                 hour=format(as.POSIXct(Time,format="%H:%M:%S"), "%I %p"),
+                 count=1),
+  FUN=sum
+)
+a
+b=data.frame(a$hour)
+b
+c=table(b)
+c
+#barplot(c)
+
+#z=barplot(c,xlim = c(0,35),horiz=FALSE,  space = 0.4,  yaxp=c(0,25,1), main = "Title", las=1,  
+      #    cex.names=0.8, ylab="y label", cex.axis=0.35)
+
+z=barplot(c,xlim = c(0,35),horiz=FALSE, main = "Facebook Leads",
+          cex.names=0.8, ylab="No.of Registration", cex.axis=0.35)
+
+
+
+```
+
+

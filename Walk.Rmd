@@ -30,13 +30,14 @@ rep = read.xlsx("Walkinreport.xlsx", sheetIndex= 2, header=TRUE, colIndex = c(13
 #table(rep)
 #rep
 y=rep[rep$Status!="Reject",]
-z=data.frame(y)
-z
+y
+#z=data.frame(y)
+#z
 #count
-source("http://pcwww.liv.ac.uk/~william/R/crosstab.r")
-s=crosstab(z, row.vars = "Source", col.vars = "Status")
-h=(s$Reject <-NULL)
-h
+#source("http://pcwww.liv.ac.uk/~william/R/crosstab.r")
+#s=crosstab(z, row.vars = "Source", col.vars = "Status")
+#h=(s$Reject <-NULL)
+#h
 
 #dotchart(y)
 #table(y)

@@ -1,0 +1,29 @@
+---
+title: "Time Series"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+In this Module we are going to analyse the data to find by what time we are getting more registration in facebook. 
+
+```{r}
+install.packages("xlsx",repos = "http://cran.us.r-project.org")
+```
+
+```{r}
+library("xlsx")
+rep=read.xlsx("fb.xlsx", sheetIndex= 1, header=TRUE, colIndex = c(1,2,3), startRow = 1, endRow = 185)
+z=rep$Time
+z
+MyDatesTable <- table(cut(z, breaks="hour"))
+MyDatesTable
+data.frame(MyDatesTable)
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
