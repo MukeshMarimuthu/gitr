@@ -1,0 +1,76 @@
+---
+title: "LinearReg"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is the Module for linear regression
+
+```{r}
+library("xlsx")
+mydata= read.csv("/home/ecsusa13/LungCapData.csv", header= TRUE, sep = ",")
+mydata
+attach(mydata)
+#cor(LungCap,Age+Height)
+cor(Age,Height)
+regression <- lm(LungCap ~ Age + Height)
+regression
+summary(regression)
+newdata = data.frame(Age=25, Height = 90)
+predict(regression, newdata)
+summary(regression)$r.squared
+
+
+
+
+```
+
+
+
+## Training data 1
+
+```{r}
+#install.packages("caret")
+library("caret")
+library("xlsx")
+actdata<-read.xlsx("LungCapData.xls", sheetIndex = 1, startRow = 1, endRow = 726, header = TRUE)
+#actdata
+
+#partioning data into test & train
+library("caTools")
+ind<-createDataPartition(actdata$LungCap, p = 1/5, list=FALSE)
+ind
+tarinDF<-actdata[-ind,]
+testDF<-actdata[ind,]
+
+#definig cross validation
+
+ControlParameters <- trainControl(method = "cv", number = 5, savePredictions = TRUE)
+
+#train model
+attach(actdata)
+mytrain<-train(LungCap ~ Height, data = tarinDF, method="lm", trControl = ControlParameters)
+mytrain
+summary(mytrain)
+#str(mytrain)
+extractAIC(mytrain$finalModel)
+
+# Tesing me testdata
+prediction = predict(mytrain, testDF)
+prediction
+
+#Cross verification - Confusion matrix
+
+#t <- table(predictions= prediction, actual= testDF$LungCap)
+#t
+
+```
+
+
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
